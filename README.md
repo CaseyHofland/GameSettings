@@ -1,2 +1,2 @@
-# GameSettings
-Easily configure and extend Game Settings for Unity.
+# Settings
+Generalized Settings System for Unity.
