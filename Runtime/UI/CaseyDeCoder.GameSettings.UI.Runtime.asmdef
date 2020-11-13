@@ -1,0 +1,24 @@
+{
+    "name": "CaseyDeCoder.GameSettings.UI.Runtime",
+    "references": [
+        "GUID:bff4f8d75b4054f4aad21e2873d54449",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "UNITY_UI"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.unity.ugui",
+            "expression": "1.0",
+            "define": "UNITY_UI"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,17 @@
+{
+    "name": "CaseyDeCoder.GameSettings.Editor",
+    "references": [
+        "GUID:bff4f8d75b4054f4aad21e2873d54449"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
