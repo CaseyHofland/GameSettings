@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "VSyncSetting", menuName = "Settings/VSync")]
-    public class VSyncSetting : EnumSetting<VSyncSetting.VBlank>
+    [CreateAssetMenu(fileName = "VSyncSetting", menuName = "Game Settings/VSync")]
+    public class VSyncSetting : EnumSetting
     {
         public override string settingName => "VSync";
 
-        public override VBlank value
+        public override Enum value
         {
             get => (VBlank)QualitySettings.vSyncCount;
-            set => QualitySettings.vSyncCount = (int)value;
+            set => QualitySettings.vSyncCount = (int)(VBlank)value;
         }
 
         public enum VBlank
@@ -18,8 +19,6 @@ namespace GameSettings
             DontSync,
             EveryVBlank,
             EverySecondVBlank,
-            EveryThirdVBlank,
-            EveryFourthVBlank,
         }
     }
 }

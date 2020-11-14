@@ -5,7 +5,7 @@ using UnityEngine.UI;
 namespace GameSettings.UI
 {
     [Serializable]
-    public abstract class UISetting : ISettingSelectable
+    public abstract class SettingInterpreter : ISettingSelectableInterpreter
     {
         [SerializeField] private GameSetting _gameSetting;
         public GameSetting gameSetting
@@ -18,7 +18,7 @@ namespace GameSettings.UI
         public abstract void ResetView(Selectable selectable);
     }
 
-    public abstract class UISetting<T> : UISetting, ISettingSelectable<T> where T : GameSetting
+    public abstract class SettingInterpreter<T> : SettingInterpreter, ISettingSelectableInterpreter<T> where T : GameSetting
     {
         public new T gameSetting 
         {

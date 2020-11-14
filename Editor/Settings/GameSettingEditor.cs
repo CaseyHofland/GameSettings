@@ -18,21 +18,8 @@ namespace GameSettings.Editor
 
         public override void OnInspectorGUI()
         {
-            serializedObject.Update();
-
-            var property = serializedObject.GetIterator();
-            if(property.NextVisible(true))
-            {
-                DrawLoadOnStartupToggle();
-                DrawCurrentValue();
-
-                while(property.NextVisible(false))
-                {
-                    EditorGUILayout.PropertyField(property, true);
-                }
-            }
-
-            serializedObject.ApplyModifiedProperties();
+            DrawLoadOnStartupToggle();
+            DrawProperties();
         }
 
         protected void DrawLoadOnStartupToggle()
@@ -56,10 +43,20 @@ namespace GameSettings.Editor
             }
         }
 
-        protected void DrawCurrentValue()
+        protected void DrawProperties()
         {
-            var currentValue = target.GetType().GetProperty("value").GetValue(target);
-            EditorGUILayout.LabelField($"Current Value:", $"{currentValue}");
+            serializedObject.Update();
+
+            var property = serializedObject.GetIterator();
+            if(property.NextVisible(true))
+            {
+                while(property.NextVisible(false))
+                {
+                    EditorGUILayout.PropertyField(property, true);
+                }
+            }
+
+            serializedObject.ApplyModifiedProperties();
         }
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine.Audio;
 namespace GameSettings.Editor
 {
     [CustomEditor(typeof(AudioSetting), true)]
-    public class AudioSettingEditor : GameSettingEditor
+    public class AudioSettingEditor : FloatSettingEditor
     {
         private SerializedProperty audioMixer;
         private SerializedProperty exposedParameter;
@@ -43,9 +43,9 @@ namespace GameSettings.Editor
                     index = EditorGUILayout.Popup("Parameter", index, names);
                     exposedParameter.stringValue = names[index];
 
-                    // Other Values
-                    DrawCurrentValue();
+                    serializedObject.ApplyModifiedProperties();
 
+                    // Other Values
                     var property = exposedParameter.Copy();
                     while(property.NextVisible(false))
                     {

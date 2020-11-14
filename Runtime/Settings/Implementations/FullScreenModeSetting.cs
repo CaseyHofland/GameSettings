@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "FullScreenSetting", menuName = "Settings/Full Screen")]
-    public class FullScreenModeSetting : EnumSetting<FullScreenMode>
+    [CreateAssetMenu(fileName = "FullScreenModeSetting", menuName = "Game Settings/Full Screen Mode")]
+    public class FullScreenModeSetting : EnumSetting
     {
-        public override string settingName => "Full Screen";
+        public override string settingName => "Full Screen Mode";
 
-        public override FullScreenMode value 
-        { 
+        public override Enum value
+        {
             get => Screen.fullScreenMode;
-            set => Screen.fullScreenMode = value;
+            set => Screen.fullScreenMode = (FullScreenMode)value;
         }
     }
 }

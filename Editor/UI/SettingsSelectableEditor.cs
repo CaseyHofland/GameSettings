@@ -5,13 +5,17 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
+#if UNITY_TEXTMESHPRO
+using TMPro;
+#endif
+
 namespace GameSettings.UI.Editor
 {
     [CustomEditor(typeof(SettingsSelectable), true)]
     public class SettingsSelectableEditor : UnityEditor.Editor
     {
         protected SerializedProperty _gameSetting;
-        protected SerializedProperty settingSelectable;
+        protected SerializedProperty selectableInterpreter;
 
         private string[] displayOptions;
         private GameSetting[] gameSettings;
@@ -23,18 +27,41 @@ namespace GameSettings.UI.Editor
         {
             // Get Properties
             _gameSetting = serializedObject.FindProperty(nameof(_gameSetting));
-            settingSelectable = serializedObject.FindProperty(nameof(settingSelectable));
+            selectableInterpreter = serializedObject.FindProperty(nameof(selectableInterpreter));
 
             // Get the Corresponding Interface Type
             Selectable selectable = (Selectable)typeof(SettingsSelectable).GetProperty(nameof(selectable)).GetValue(target);
             Type interfaceType;
             switch(selectable)
             {
+#if UNITY_TEXTMESHPRO
+                case TMP_InputField _:
+                    interfaceType = typeof(TMPro.ISettingTMP_InputFieldInterpreter);
+                    break;
+                case TMP_Dropdown _:
+                    interfaceType = typeof(TMPro.ISettingTMP_DropdownInterpreter);
+                    break;
+#endif
+                case InputField _:
+                    interfaceType = typeof(ISettingInputFieldInterpreter);
+                    break;
+                case Dropdown _:
+                    interfaceType = typeof(ISettingDropdownInterpreter);
+                    break;
+                case Scrollbar _:
+                    interfaceType = typeof(ISettingScrollbarInterpreter);
+                    break;
                 case Slider _:
-                    interfaceType = typeof(ISettingSlider);
+                    interfaceType = typeof(ISettingSliderInterpreter);
+                    break;
+                case Toggle _:
+                    interfaceType = typeof(ISettingToggleInterpreter);
+                    break;
+                case Button _:
+                    interfaceType = typeof(ISettingButtonInterpreter);
                     break;
                 case Selectable _:
-                    interfaceType = typeof(ISettingSelectable);
+                    interfaceType = typeof(ISettingSelectableInterpreter);
                     break;
                 default:
                     interfaceType = null;
@@ -86,16 +113,21 @@ namespace GameSettings.UI.Editor
             index = Array.IndexOf(this.gameSettings, _gameSetting.objectReferenceValue) + 1;
             if(index > 0)
             {
-                if(!string.IsNullOrWhiteSpace(settingSelectable.managedReferenceFullTypename))
+                if(!string.IsNullOrWhiteSpace(selectableInterpreter.managedReferenceFullTypename))
                 {
                     var gameSetting = gameSettings[index - 1];
                     var interpreter = settingInterpreters[gameSetting];
-                    var instance = (ISettingSelectable)Activator.CreateInstance(interpreter);
+                    var instance = (ISettingSelectableInterpreter)Activator.CreateInstance(interpreter);
                     instance.gameSetting = gameSetting;
-                    settingSelectable.managedReferenceValue = instance;
+                    selectableInterpreter.managedReferenceValue = instance;
                 }
 
                 settingEditor = CreateEditor(_gameSetting.objectReferenceValue);
+            }
+            else
+            {
+                selectableInterpreter.managedReferenceValue = null;
+                settingEditor = null;
             }
         }
 
@@ -113,37 +145,40 @@ namespace GameSettings.UI.Editor
                     _gameSetting.objectReferenceValue = gameSetting;
                     
                     var interpreter = settingInterpreters[gameSetting];
-                    var instance = (ISettingSelectable)Activator.CreateInstance(interpreter);
+                    var instance = (ISettingSelectableInterpreter)Activator.CreateInstance(interpreter);
                     instance.gameSetting = gameSetting;
-                    settingSelectable.managedReferenceValue = instance;
+                    selectableInterpreter.managedReferenceValue = instance;
 
                     settingEditor = CreateEditor(gameSetting);
                 }
                 else
                 {
                     _gameSetting.objectReferenceValue = null;
-                    settingSelectable.managedReferenceValue = null;
+                    selectableInterpreter.managedReferenceValue = null;
                     settingEditor = null;
                 }
+
+                serializedObject.ApplyModifiedProperties();
+                ((SettingsSelectable)target).ResetView();
             }
 
-            if(!string.IsNullOrWhiteSpace(settingSelectable.managedReferenceFullTypename))
+            serializedObject.ApplyModifiedProperties();
+
+            if(_gameSetting.objectReferenceValue
+                && !string.IsNullOrWhiteSpace(selectableInterpreter.managedReferenceFullTypename)
+                && settingEditor)
             {
-                if(settingEditor)
-                {
-                    settingEditor.OnInspectorGUI();
-                }
+                settingEditor.OnInspectorGUI();
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.PrefixLabel(" ");
                 if(GUILayout.Button("Reset View"))
                 {
                     ((SettingsSelectable)target).ResetView();
+                    EditorApplication.QueuePlayerLoopUpdate();
                 }
                 EditorGUILayout.EndHorizontal();
             }
-
-            serializedObject.ApplyModifiedProperties();
         }
     }
 }

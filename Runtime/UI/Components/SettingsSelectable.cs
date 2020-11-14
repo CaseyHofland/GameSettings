@@ -5,12 +5,13 @@ namespace GameSettings.UI
 {
     [RequireComponent(typeof(Selectable))]
     [ExecuteAlways]
+    [AddComponentMenu("UI/Game Settings/Settings Selectable")]
     public class SettingsSelectable : MonoBehaviour
     {
         private Selectable _selectable;
         public Selectable selectable => _selectable ? _selectable : (_selectable = GetComponent<Selectable>());
 
-        [SerializeReference] protected ISettingSelectable settingSelectable;
+        [SerializeReference] protected ISettingSelectableInterpreter selectableInterpreter;
         [SerializeField] private GameSetting _gameSetting;
         public GameSetting gameSetting
         {
@@ -25,12 +26,12 @@ namespace GameSettings.UI
 
         protected virtual void LateUpdate()
         {
-            settingSelectable?.UpdateView(selectable);
+            selectableInterpreter?.UpdateView(selectable);
         }
 
         public virtual void ResetView()
         {
-            settingSelectable?.ResetView(selectable);
+            selectableInterpreter?.ResetView(selectable);
         }
     }
 }

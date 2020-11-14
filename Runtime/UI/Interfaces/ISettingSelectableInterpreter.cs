@@ -2,7 +2,7 @@
 
 namespace GameSettings.UI
 {
-    public interface ISettingSelectable
+    public interface ISettingSelectableInterpreter
     {
         GameSetting gameSetting { get; set; }
 
@@ -10,7 +10,7 @@ namespace GameSettings.UI
         void ResetView(Selectable selectable);
     }
 
-    public interface ISettingSelectable<T> : ISettingSelectable where T : GameSetting
+    public interface ISettingSelectableInterpreter<T> : ISettingSelectableInterpreter where T : GameSetting
     {
         new T gameSetting { get; set; }
     }

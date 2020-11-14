@@ -4,37 +4,38 @@ using UnityEngine.UI;
 namespace GameSettings.UI
 {
     [RequireComponent(typeof(Slider))]
+    [AddComponentMenu("UI/Game Settings/Settings Slider")]
     public class SettingsSlider : SettingsSelectable
     {
         public Slider slider => (Slider)selectable;
-        protected ISettingSlider settingSlider => (ISettingSlider)settingSelectable;
+        protected ISettingSliderInterpreter sliderInterpreter => (ISettingSliderInterpreter)selectableInterpreter;
 
         protected virtual void OnEnable()
         {
-            if(settingSlider != null)
+            if(sliderInterpreter != null)
             {
-                slider.onValueChanged.AddListener(settingSlider.ValueChanged);
+                slider.onValueChanged.AddListener(sliderInterpreter.ValueChanged);
             }
         }
 
         protected override void LateUpdate()
         {
             base.LateUpdate();
-            settingSlider?.UpdateView(slider);
+            sliderInterpreter?.UpdateView(slider);
         }
 
         protected virtual void OnDisable()
         {
-            if(settingSlider != null)
+            if(sliderInterpreter != null)
             {
-                slider.onValueChanged.RemoveListener(settingSlider.ValueChanged);
+                slider.onValueChanged.RemoveListener(sliderInterpreter.ValueChanged);
             }
         }
 
         public override void ResetView()
         {
             base.ResetView();
-            settingSlider?.ResetView(slider);
+            sliderInterpreter?.ResetView(slider);
         }
     }
 }

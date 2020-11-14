@@ -3,7 +3,7 @@ using UnityEngine.Audio;
 
 namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "AudioSetting", menuName = "Settings/Audio")]
+    [CreateAssetMenu(fileName = "AudioSetting", menuName = "Game Settings/Audio")]
     public sealed class AudioSetting : FloatSetting
     {
         public override string settingName => $"Audio {audioMixer.name} {exposedParameter}";

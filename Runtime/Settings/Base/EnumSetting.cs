@@ -1,15 +1,19 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace GameSettings
 {
-    public abstract class EnumSetting<TEnum> : GameSetting<TEnum> where TEnum : Enum
+    public abstract class EnumSetting : GameSetting<Enum>
     {
+        public int intValue
+        {
+            get => (int)(object)value;
+            set => this.value = (Enum)Enum.ToObject(typeof(Enum), value);
+        }
+
         public override void Save()
         {
-            PlayerPrefs.SetInt(saveKey, (int)(object)value);
+            PlayerPrefs.SetInt(saveKey, intValue);
             PlayerPrefs.Save();
         }
 
@@ -17,7 +21,7 @@ namespace GameSettings
         {
             if(PlayerPrefs.HasKey(saveKey))
             {
-                value = (TEnum)(object)PlayerPrefs.GetInt(saveKey);  // (TEnum)Enum.ToObject(typeof(TEnum), base.value);
+                intValue = PlayerPrefs.GetInt(saveKey);
             }
         }
     }
