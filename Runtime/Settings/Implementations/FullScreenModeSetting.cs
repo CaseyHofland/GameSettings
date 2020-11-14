@@ -3,14 +3,14 @@
 namespace GameSettings
 {
     [CreateAssetMenu(fileName = "FullScreenSetting", menuName = "Settings/Full Screen")]
-    public class FullScreenModeSetting : IntSetting
+    public class FullScreenModeSetting : EnumSetting<FullScreenMode>
     {
         public override string settingName => "Full Screen";
 
-        public virtual new FullScreenMode value
-        {
+        public override FullScreenMode value 
+        { 
             get => Screen.fullScreenMode;
-            set => base.value = (int)(Screen.fullScreenMode = value);
+            set => Screen.fullScreenMode = value;
         }
     }
 }

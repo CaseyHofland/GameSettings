@@ -10,20 +10,18 @@ namespace GameSettings.UI
         private Selectable _selectable;
         public Selectable selectable => _selectable ? _selectable : (_selectable = GetComponent<Selectable>());
 
-        [SerializeReference] private UISetting _uiSetting;
-        public UISetting uiSetting
+        [SerializeReference] protected ISettingSelectable settingSelectable;
+        [SerializeField] private GameSetting _gameSetting;
+        public GameSetting gameSetting
         {
-            get => _uiSetting;
+            get => _gameSetting;
             set
             {
                 enabled = false;
-                _uiSetting = value;
+                _gameSetting = value;
                 enabled = true;
             }
         }
-
-        public ISettingSelectable settingSelectable => (ISettingSelectable)uiSetting;
-        public GameSetting gameSetting => uiSetting.gameSetting;
 
         protected virtual void LateUpdate()
         {
@@ -36,4 +34,3 @@ namespace GameSettings.UI
         }
     }
 }
-

@@ -1,17 +1,33 @@
-﻿using UnityEngine.UI;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameSettings.UI
 {
+    [Serializable]
     public abstract class UISetting : ISettingSelectable
     {
-        public GameSetting gameSetting;
+        [SerializeField] private GameSetting _gameSetting;
+        public GameSetting gameSetting
+        {
+            get => _gameSetting;
+            set => _gameSetting = value;
+        }
 
-        public virtual void UpdateView(Selectable selectable) { }
-        public virtual void ResetView(Selectable selectable) { }
+        public abstract void UpdateView(Selectable selectable);
+        public abstract void ResetView(Selectable selectable);
     }
 
-    public abstract class UISetting<TSetting> : UISetting where TSetting : GameSetting
+    public abstract class UISetting<T> : UISetting, ISettingSelectable<T> where T : GameSetting
     {
-        public TSetting derivedGameSetting => (TSetting)gameSetting;
+        public new T gameSetting 
+        {
+            get => (T)base.gameSetting;
+            set => base.gameSetting = value;
+        }
+
+        public override void UpdateView(Selectable selectable) { }
+        public override void ResetView(Selectable selectable) { }
     }
 }
+

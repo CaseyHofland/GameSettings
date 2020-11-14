@@ -13,6 +13,6 @@ namespace GameSettings
 
     public abstract class GameSetting<TValue> : GameSetting
     {
-        public virtual TValue value { get; set; }
+        public abstract TValue value { get; set; }
     }
 }

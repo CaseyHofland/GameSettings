@@ -3,14 +3,14 @@
 namespace GameSettings
 {
     [CreateAssetMenu(fileName = "VSyncSetting", menuName = "Settings/VSync")]
-    public class VSyncSetting : IntSetting
+    public class VSyncSetting : EnumSetting<VSyncSetting.VBlank>
     {
         public override string settingName => "VSync";
 
-        public virtual new VBlank value 
-        { 
-            get => (VBlank)QualitySettings.vSyncCount; 
-            set => base.value = QualitySettings.vSyncCount = (int)value; 
+        public override VBlank value
+        {
+            get => (VBlank)QualitySettings.vSyncCount;
+            set => QualitySettings.vSyncCount = (int)value;
         }
 
         public enum VBlank

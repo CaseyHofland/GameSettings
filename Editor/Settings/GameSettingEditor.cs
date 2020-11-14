@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
 using UnityEditor;
 
 namespace GameSettings.Editor
@@ -59,8 +58,7 @@ namespace GameSettings.Editor
 
         protected void DrawCurrentValue()
         {
-            var bindingFlags = BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.DeclaredOnly;
-            var currentValue = target.GetType().GetProperty("value", bindingFlags).GetValue(target);
+            var currentValue = target.GetType().GetProperty("value").GetValue(target);
             EditorGUILayout.LabelField($"Current Value:", $"{currentValue}");
         }
     }

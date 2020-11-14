@@ -7,8 +7,7 @@ namespace GameSettings.UI
     public class SettingsSlider : SettingsSelectable
     {
         public Slider slider => (Slider)selectable;
-
-        public ISettingSlider settingSlider => (ISettingSlider)settingSelectable;
+        protected ISettingSlider settingSlider => (ISettingSlider)settingSelectable;
 
         protected virtual void OnEnable()
         {
