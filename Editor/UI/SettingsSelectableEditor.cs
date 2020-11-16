@@ -159,9 +159,6 @@ namespace GameSettings.UI.Editor
                     selectableInterpreter.managedReferenceValue = null;
                     settingEditor = null;
                 }
-
-                serializedObject.ApplyModifiedProperties();
-                ((SettingsSelectable)target).ResetView();
             }
 
             if(settingEditor)
