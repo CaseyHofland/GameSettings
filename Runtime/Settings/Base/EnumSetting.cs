@@ -8,7 +8,7 @@ namespace GameSettings
         public int intValue
         {
             get => (int)(object)value;
-            set => this.value = (Enum)Enum.ToObject(typeof(Enum), value);
+            set => this.value = (Enum)Enum.ToObject(this.value.GetType(), value);
         }
 
         public override void Save()

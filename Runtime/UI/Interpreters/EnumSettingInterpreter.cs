@@ -13,7 +13,7 @@ namespace GameSettings.UI
         protected virtual int alteredValue
         {
             get => descending ? enumLength - 1 - gameSetting.intValue : gameSetting.intValue;
-            set => gameSetting.intValue = descending ? value + enumLength - 1 : value;
+            set => gameSetting.intValue = descending ? enumLength - 1 - value : value;
         }
 
         public virtual void UpdateView(Dropdown dropdown)
