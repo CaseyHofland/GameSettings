@@ -1,8 +1,10 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace GameSettings.Editor
 {
-    [CustomEditor(typeof(IntSetting))]
+    [CustomEditor(typeof(IntSetting), true)]
     public class IntSettingEditor : GameSettingEditor
     {
         public override void OnInspectorGUI()
@@ -16,15 +18,22 @@ namespace GameSettings.Editor
         {
             var intSetting = (IntSetting)target;
 
-            EditorGUI.BeginChangeCheck();
-            var newValue = delayed
-                ? EditorGUILayout.DelayedIntField("Value", intSetting.value)
-                : EditorGUILayout.IntField("Value", intSetting.value);
-            if(EditorGUI.EndChangeCheck())
+            try
             {
-                intSetting.value = newValue;
+                EditorGUI.BeginChangeCheck();
+                var newValue = delayed
+                    ? EditorGUILayout.DelayedIntField(intSetting.settingName, intSetting.value)
+                    : EditorGUILayout.IntField(intSetting.settingName, intSetting.value);
+                if(EditorGUI.EndChangeCheck())
+                {
+                    intSetting.value = newValue;
+                }
             }
-        }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
+            }
+}
     }
 }
 

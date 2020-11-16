@@ -25,5 +25,16 @@ namespace GameSettings
             }
         }
     }
+
+    public abstract class EnumSetting<T> : EnumSetting where T : Enum
+    {
+        public override Enum value 
+        { 
+            get => enumValue;
+            set => enumValue = (T)value;
+        }
+
+        public abstract T enumValue { get; set; }
+    }
 }
 

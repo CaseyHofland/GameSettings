@@ -5,40 +5,49 @@ namespace GameSettings.UI
 {
     public class IntSettingInterpreter : SettingInterpreter<IntSetting>, ISettingSliderInterpreter, ISettingInputFieldInterpreter
     {
-        public void UpdateView(Slider slider)
+        [Tooltip("Alter the shown value.")] public int alterValue = 0;
+        [Tooltip("Multiply the shown value. Applied after Alter Value.")] public int muliplyValue = 1;
+
+        protected virtual int alteredValue
         {
-            slider.SetValueWithoutNotify(gameSetting.value);
+            get => (gameSetting.value + alterValue) * muliplyValue;
+            set => gameSetting.value = value / muliplyValue - alterValue;
         }
 
-        public void ResetView(Slider slider)
+        public virtual void UpdateView(Slider slider)
+        {
+            slider.SetValueWithoutNotify(alteredValue);
+        }
+
+        public virtual void ResetView(Slider slider)
         {
             slider.wholeNumbers = true;
         }
 
-        public void ValueChanged(float value)
+        public virtual void ValueChanged(float value)
         {
-            gameSetting.value = Mathf.RoundToInt(value);
+            alteredValue = Mathf.RoundToInt(value);
             gameSetting.Save();
         }
 
-        public void UpdateView(InputField inputField)
+        public virtual void UpdateView(InputField inputField)
         {
-            inputField.SetTextWithoutNotify(gameSetting.value.ToString());
+            inputField.SetTextWithoutNotify(alteredValue.ToString());
         }
 
-        public void ResetView(InputField inputField)
+        public virtual void ResetView(InputField inputField)
         {
             inputField.contentType = InputField.ContentType.IntegerNumber;
         }
 
-        public void ValueChanged(string value)
+        public virtual void ValueChanged(string value)
         {
-            gameSetting.value = int.Parse(value);
+            alteredValue = int.Parse(value);
         }
 
-        public void EndedEdit(string value)
+        public virtual void EndedEdit(string value)
         {
-            gameSetting.value = int.Parse(value);
+            alteredValue = int.Parse(value);
             gameSetting.Save();
         }
     }

@@ -1,8 +1,10 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace GameSettings.Editor
 {
-    [CustomEditor(typeof(StringSetting))]
+    [CustomEditor(typeof(StringSetting), true)]
     public class StringSettingEditor : GameSettingEditor
     {
         public override void OnInspectorGUI()
@@ -16,13 +18,20 @@ namespace GameSettings.Editor
         {
             var stringSetting = (StringSetting)target;
 
-            EditorGUI.BeginChangeCheck();
-            var newValue = delayed
-                ? EditorGUILayout.DelayedTextField("Value", stringSetting.value)
-                : EditorGUILayout.TextField("Value", stringSetting.value);
-            if(EditorGUI.EndChangeCheck())
+            try
             {
-                stringSetting.value = newValue;
+                EditorGUI.BeginChangeCheck();
+                var newValue = delayed
+                    ? EditorGUILayout.DelayedTextField(stringSetting.settingName, stringSetting.value)
+                    : EditorGUILayout.TextField(stringSetting.settingName, stringSetting.value);
+                if(EditorGUI.EndChangeCheck())
+                {
+                    stringSetting.value = newValue;
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
             }
         }
     }

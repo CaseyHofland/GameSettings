@@ -11,7 +11,6 @@ namespace GameSettings.UI
         private Selectable _selectable;
         public Selectable selectable => _selectable ? _selectable : (_selectable = GetComponent<Selectable>());
 
-        [SerializeReference] protected ISettingSelectableInterpreter selectableInterpreter;
         [SerializeField] private GameSetting _gameSetting;
         public GameSetting gameSetting
         {
@@ -24,8 +23,16 @@ namespace GameSettings.UI
             }
         }
 
+        public bool forceView = false;
+
+        [SerializeReference] protected ISettingSelectableInterpreter selectableInterpreter;
+
         protected virtual void LateUpdate()
         {
+            if(forceView)
+            {
+                ResetView();
+            }
             selectableInterpreter?.UpdateView(selectable);
         }
 

@@ -1,21 +1,30 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameSettings.UI
 {
     public class BoolSettingInterpreter : SettingInterpreter<BoolSetting>, ISettingToggleInterpreter
     {
-        public void UpdateView(Toggle toggle)
+        [Tooltip("Shown the opposite value.")] public bool flip = false;
+
+        protected virtual bool alteredValue
         {
-            toggle.SetIsOnWithoutNotify(gameSetting.value);
+            get => gameSetting.value != flip;
+            set => gameSetting.value = value != flip;
         }
 
-        public void ResetView(Toggle toggle)
+        public virtual void UpdateView(Toggle toggle)
+        {
+            toggle.SetIsOnWithoutNotify(alteredValue);
+        }
+
+        public virtual void ResetView(Toggle toggle)
         {
         }
 
-        public void ValueChanged(bool value)
+        public virtual void ValueChanged(bool value)
         {
-            gameSetting.value = value;
+            alteredValue = value;
             gameSetting.Save();
         }
     }

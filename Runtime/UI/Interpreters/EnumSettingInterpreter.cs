@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace GameSettings.UI
 {
-    public class EnumSettingInterpreter : SettingInterpreter<EnumSetting>, ISettingDropdownInterpreter
+    public class EnumSettingInterpreter : SettingInterpreter<EnumSetting>, ISettingDropdownInterpreter, ISettingSliderInterpreter
     {
-        public void UpdateView(Dropdown dropdown)
+        [Tooltip("Show the values in descending order.")] public bool descending = false;
+
+        protected int enumLength => Enum.GetValues(gameSetting.value.GetType()).Length;
+        protected virtual int alteredValue
         {
-            var enumLength = Enum.GetValues(gameSetting.value.GetType()).Length;
+            get => descending ? enumLength - 1 - gameSetting.intValue : gameSetting.intValue;
+            set => gameSetting.intValue = descending ? value + enumLength - 1 : value;
+        }
+
+        public virtual void UpdateView(Dropdown dropdown)
+        {
             if(dropdown.options.Count > enumLength)
             {
                 dropdown.options.RemoveRange(enumLength, dropdown.options.Count - enumLength);
@@ -20,22 +29,44 @@ namespace GameSettings.UI
                 dropdown.RefreshShownValue();
             }
 
-            dropdown.SetValueWithoutNotify(gameSetting.intValue);
+            dropdown.SetValueWithoutNotify(alteredValue);
         }
 
-        public void ResetView(Dropdown dropdown)
+        public virtual void ResetView(Dropdown dropdown)
         {
             dropdown.ClearOptions();
 
             var options = new List<string>(Enum.GetNames(gameSetting.value.GetType()));
+            if(descending)
+            {
+                options.Reverse();
+            }
 
             dropdown.AddOptions(options);
             dropdown.RefreshShownValue();
         }
 
-        public void ValueChanged(int value)
+        public virtual void ValueChanged(int value)
         {
-            gameSetting.intValue = value;
+            alteredValue = value;
+            gameSetting.Save();
+        }
+
+        public virtual void UpdateView(Slider slider)
+        {
+            slider.SetValueWithoutNotify(alteredValue);
+        }
+
+        public virtual void ResetView(Slider slider)
+        {
+            slider.wholeNumbers = true;
+            slider.minValue = 1;
+            slider.maxValue = enumLength;
+        }
+
+        public virtual void ValueChanged(float value)
+        {
+            alteredValue = Mathf.RoundToInt(value) - 1;
             gameSetting.Save();
         }
     }

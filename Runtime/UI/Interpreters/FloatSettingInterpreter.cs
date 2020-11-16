@@ -4,48 +4,63 @@ namespace GameSettings.UI
 {
     public class FloatSettingInterpreter : SettingInterpreter<FloatSetting>, ISettingSliderInterpreter, ISettingScrollbarInterpreter, ISettingInputFieldInterpreter
     {
-        public void UpdateView(Slider slider)
+        //[Tooltip("Alter the shown value.")] public float alterValue = 0f;
+        //[Tooltip("Multiply the shown value. Aplied after alterValue.")] public float multiplyValue = 1f;
+
+        public float ratio = 1f;
+        public float adjustment = 0f;
+
+        protected float Interpret(float value) => value * ratio + adjustment;
+        protected float ReverseInterpret(float value) => (value - adjustment) / ratio;
+
+        protected virtual float alteredValue
         {
-            slider.SetValueWithoutNotify(gameSetting.value);
+            get => ReverseInterpret(gameSetting.value);
+            set => gameSetting.value = Interpret(value);
         }
 
-        public void ResetView(Slider slider)
+        public virtual void UpdateView(Slider slider)
+        {
+            slider.SetValueWithoutNotify(alteredValue);
+        }
+
+        public virtual void ResetView(Slider slider)
         {
         }
 
-        public void ValueChanged(float value)
+        public virtual void ValueChanged(float value)
         {
-            gameSetting.value = value;
+            alteredValue = value;
             gameSetting.Save();
         }
 
-        public void UpdateView(Scrollbar scrollbar)
+        public virtual void UpdateView(Scrollbar scrollbar)
         {
-            scrollbar.SetValueWithoutNotify(gameSetting.value);
+            scrollbar.SetValueWithoutNotify(alteredValue);
         }
 
-        public void ResetView(Scrollbar scrollbar)
+        public virtual void ResetView(Scrollbar scrollbar)
         {
         }
 
-        public void UpdateView(InputField inputField)
+        public virtual void UpdateView(InputField inputField)
         {
-            inputField.SetTextWithoutNotify(gameSetting.value.ToString());
+            inputField.SetTextWithoutNotify(alteredValue.ToString());
         }
 
-        public void ResetView(InputField inputField)
+        public virtual void ResetView(InputField inputField)
         {
             inputField.contentType = InputField.ContentType.DecimalNumber;
         }
 
-        public void ValueChanged(string value)
+        public virtual void ValueChanged(string value)
         {
-            gameSetting.value = float.Parse(value);
+            alteredValue = float.Parse(value);
         }
 
-        public void EndedEdit(string value)
+        public virtual void EndedEdit(string value)
         {
-            gameSetting.value = float.Parse(value);
+            alteredValue = float.Parse(value);
             gameSetting.Save();
         }
     }

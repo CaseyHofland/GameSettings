@@ -2,7 +2,7 @@
 
 namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "Full Screen", menuName = "Game Settings/Full Screen")]
+    [CreateAssetMenu(fileName = "FullScreenSetting", menuName = "Game Settings/Screen/Full Screen")]
     public class FullScreenSetting : BoolSetting
     {
         public override string settingName => "Full Screen";

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEditor;
+using UnityEngine;
 using UnityEngine.Audio;
 
 namespace GameSettings.Editor
@@ -10,12 +11,16 @@ namespace GameSettings.Editor
         private SerializedProperty audioMixer;
         private SerializedProperty exposedParameter;
 
+        private float value;
+
         protected override void OnEnable()
         {
             base.OnEnable();
 
             audioMixer = serializedObject.FindProperty(nameof(audioMixer));
             exposedParameter = serializedObject.FindProperty(nameof(exposedParameter));
+
+            value = ((AudioSetting)target).value;
         }
 
         public override void OnInspectorGUI()
@@ -44,6 +49,13 @@ namespace GameSettings.Editor
                     exposedParameter.stringValue = names[index];
 
                     serializedObject.ApplyModifiedProperties();
+
+                    // Draw Value
+                    EditorGUI.BeginDisabledGroup(true);
+                    var audioSetting = (AudioSetting)target;
+                    var audioSettingValueLabel = new GUIContent(audioSetting.settingName, "Changing this value is only allowed in the Audio Mixer Window. Find it under Window > Audio > Audio Mixer.");
+                    EditorGUILayout.FloatField(audioSettingValueLabel, audioSetting.value);
+                    EditorGUI.EndDisabledGroup();
 
                     // Other Values
                     var property = exposedParameter.Copy();

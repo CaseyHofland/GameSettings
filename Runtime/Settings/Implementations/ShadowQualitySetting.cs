@@ -1,17 +1,16 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "ShadowQualitySetting", menuName = "Game Settings/Shadow Quality")]
-    public class ShadowQualitySetting : EnumSetting
+    [CreateAssetMenu(fileName = "ShadowQualitySetting", menuName = "Game Settings/Quality/Shadow Quality")]
+    public class ShadowQualitySetting : EnumSetting<ShadowQuality>
     {
         public override string settingName => "Shadow Quality";
 
-        public override Enum value 
+        public override ShadowQuality enumValue
         {
             get => QualitySettings.shadows;
-            set => QualitySettings.shadows = (ShadowQuality)value;
+            set => QualitySettings.shadows = value;
         }
     }
 }

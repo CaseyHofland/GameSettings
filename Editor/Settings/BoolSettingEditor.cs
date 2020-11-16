@@ -1,8 +1,10 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace GameSettings.Editor
 {
-    [CustomEditor(typeof(BoolSetting))]
+    [CustomEditor(typeof(BoolSetting), true)]
     public class BoolSettingEditor : GameSettingEditor
     {
         public override void OnInspectorGUI()
@@ -16,11 +18,18 @@ namespace GameSettings.Editor
         {
             var boolSetting = (BoolSetting)target;
 
-            EditorGUI.BeginChangeCheck();
-            var newValue = EditorGUILayout.Toggle("Value", boolSetting.value);
-            if(EditorGUI.EndChangeCheck())
+            try
             {
-                boolSetting.value = newValue;
+                EditorGUI.BeginChangeCheck();
+                var newValue = EditorGUILayout.Toggle(boolSetting.settingName, boolSetting.value);
+                if(EditorGUI.EndChangeCheck())
+                {
+                    boolSetting.value = newValue;
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
             }
         }
     }

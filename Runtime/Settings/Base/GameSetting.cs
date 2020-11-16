@@ -12,7 +12,7 @@ namespace GameSettings
         public abstract void Save();
         public abstract void Load();
 
-        public void Delete()
+        public virtual void Delete()
         {
             PlayerPrefs.DeleteKey(saveKey);
         }

@@ -1,4 +1,6 @@
-﻿using UnityEditor;
+﻿using System;
+using UnityEditor;
+using UnityEngine;
 
 namespace GameSettings.Editor
 {
@@ -16,11 +18,18 @@ namespace GameSettings.Editor
         {
             var enumSetting = (EnumSetting)target;
 
-            EditorGUI.BeginChangeCheck();
-            var newValue = EditorGUILayout.EnumPopup("Value", enumSetting.value);
-            if(EditorGUI.EndChangeCheck())
+            try
             {
-                enumSetting.value = newValue;
+                EditorGUI.BeginChangeCheck();
+                var newValue = EditorGUILayout.EnumPopup(enumSetting.settingName, enumSetting.value);
+                if(EditorGUI.EndChangeCheck())
+                {
+                    enumSetting.value = newValue;
+                }
+            }
+            catch(Exception e)
+            {
+                Debug.LogError(e);
             }
         }
     }
