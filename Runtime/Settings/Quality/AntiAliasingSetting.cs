@@ -9,16 +9,46 @@ namespace GameSettings
 
         public override AAFilteringOption enumValue 
         {
-            get => (AAFilteringOption)QualitySettings.antiAliasing;
-            set => QualitySettings.antiAliasing = (int)value;
+            get
+            {
+                switch(QualitySettings.antiAliasing)
+                {
+                    case 8:
+                        return AAFilteringOption._8xMultiSampling;
+                    case 4:
+                        return AAFilteringOption._4xMultiSampling;
+                    case 2:
+                        return AAFilteringOption._2xMultiSampling;
+                    default:
+                        return AAFilteringOption.Disabled;
+                }
+            }
+            set
+            {
+                switch(value)
+                {
+                    case AAFilteringOption._8xMultiSampling:
+                        QualitySettings.antiAliasing = 8;
+                        break;
+                    case AAFilteringOption._4xMultiSampling:
+                        QualitySettings.antiAliasing = 4;
+                        break;
+                    case AAFilteringOption._2xMultiSampling:
+                        QualitySettings.antiAliasing = 2;
+                        break;
+                    case AAFilteringOption.Disabled:
+                        QualitySettings.antiAliasing = 0;
+                        break;
+                }
+            }
         }
 
         public enum AAFilteringOption
         {
-            Disabled = 0,
-            _2xMultiSampling = 2,
-            _4xMultiSampling = 4,
-            _8xMultiSampling = 8,
+            Disabled,
+            _2xMultiSampling,
+            _4xMultiSampling,
+            _8xMultiSampling,
         }
     }
 }

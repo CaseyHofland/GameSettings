@@ -6,7 +6,7 @@ namespace GameSettings
     [CreateAssetMenu(fileName = "AudioSetting", menuName = "Game Settings/Audio")]
     public sealed class AudioSetting : FloatSetting
     {
-        public override string settingName => $"Audio {audioMixer.name} {exposedParameter}";
+        public override string settingName => $"Audio " + (audioMixer ? $"{audioMixer.name} {exposedParameter}" : "Unassigned");
 
         public AudioMixer audioMixer;
         public string exposedParameter;
