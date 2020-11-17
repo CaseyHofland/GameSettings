@@ -7,7 +7,7 @@ namespace GameSettings.UI
         GameSetting gameSetting { get; set; }
 
         void UpdateView(Selectable selectable);
-        void ResetView(Selectable selectable);
+        void ResetUI(Selectable selectable);
     }
 
     public interface ISettingSelectableInterpreter<T> : ISettingSelectableInterpreter where T : GameSetting

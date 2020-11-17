@@ -1,17 +1,15 @@
-﻿using UnityEngine.UI;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameSettings.UI
 {
-    public class FloatSettingInterpreter : SettingInterpreter<FloatSetting>, ISettingSliderInterpreter, ISettingScrollbarInterpreter, ISettingInputFieldInterpreter
+    public class FloatSettingInterpreter : SettingInterpreter<FloatSetting>, ISettingSliderInterpreter, ISettingScrollbarInterpreter
     {
-        //[Tooltip("Alter the shown value.")] public float alterValue = 0f;
-        //[Tooltip("Multiply the shown value. Aplied after alterValue.")] public float multiplyValue = 1f;
+        [HideInInspector] public float ratio = 1f;
+        [HideInInspector] public float adjustment = 0f;
 
-        public float ratio = 1f;
-        public float adjustment = 0f;
-
-        protected float Interpret(float value) => value * ratio + adjustment;
-        protected float ReverseInterpret(float value) => (value - adjustment) / ratio;
+        protected float Interpret(float value) => value / ratio - adjustment;
+        protected float ReverseInterpret(float value) => (value + adjustment) * ratio;
 
         protected virtual float alteredValue
         {
@@ -24,7 +22,7 @@ namespace GameSettings.UI
             slider.SetValueWithoutNotify(alteredValue);
         }
 
-        public virtual void ResetView(Slider slider)
+        public virtual void ResetUI(Slider slider)
         {
         }
 
@@ -39,29 +37,8 @@ namespace GameSettings.UI
             scrollbar.SetValueWithoutNotify(alteredValue);
         }
 
-        public virtual void ResetView(Scrollbar scrollbar)
+        public virtual void ResetUI(Scrollbar scrollbar)
         {
-        }
-
-        public virtual void UpdateView(InputField inputField)
-        {
-            inputField.SetTextWithoutNotify(alteredValue.ToString());
-        }
-
-        public virtual void ResetView(InputField inputField)
-        {
-            inputField.contentType = InputField.ContentType.DecimalNumber;
-        }
-
-        public virtual void ValueChanged(string value)
-        {
-            alteredValue = float.Parse(value);
-        }
-
-        public virtual void EndedEdit(string value)
-        {
-            alteredValue = float.Parse(value);
-            gameSetting.Save();
         }
     }
 }

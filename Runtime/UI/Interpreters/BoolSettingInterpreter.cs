@@ -18,7 +18,7 @@ namespace GameSettings.UI
             toggle.SetIsOnWithoutNotify(alteredValue);
         }
 
-        public virtual void ResetView(Toggle toggle)
+        public virtual void ResetUI(Toggle toggle)
         {
         }
 

@@ -1,11 +1,15 @@
 ﻿using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace GameSettings.UI.Editor
 {
     [CustomPropertyDrawer(typeof(FloatSettingInterpreter), true)]
     public class FloatSettingInterpreterDrawer : SettingInterpreterDrawer
     {
+        private float min = float.NaN;
+        private float max = float.NaN;
+
         public override void OnGUI(Rect position, SerializedProperty property, GUIContent label)
         {
             EditorGUI.BeginProperty(position, label, property);
@@ -13,38 +17,43 @@ namespace GameSettings.UI.Editor
             SerializedProperty ratio = property.FindPropertyRelative(nameof(ratio));
             SerializedProperty adjustment = property.FindPropertyRelative(nameof(adjustment));
 
-            EditorGUILayout.PropertyField(ratio);
-            EditorGUILayout.PropertyField(adjustment);
+            var target = (Component)property.serializedObject.targetObject;
+            float minValue, maxValue;
+            switch(target.GetComponent<Selectable>())
+            {
+                case Slider slider:
+                    minValue = slider.minValue;
+                    maxValue = slider.maxValue;
+                    break;
+                default:
+                    minValue = 0f;
+                    maxValue = 1f;
+                    break;
+            }
 
-            //EditorGUILayout.BeginHorizontal();
-            //EditorGUILayout.PrefixLabel("Interpreter");
+            if(float.IsNaN(min))
+            {
+                min = minValue / ratio.floatValue - adjustment.floatValue;
+            }
+            if(float.IsNaN(max))
+            {
+                max = (maxValue - minValue) / ratio.floatValue + min;
+            }
 
-            //var labelOptions = GUILayout.Width(10f);
-            //var floatContent = GUIContent.none;
+            min = EditorGUILayout.FloatField("Min Value", min);
+            max = EditorGUILayout.FloatField("Max Value", max);
 
-            //SerializedProperty _gameSetting = property.FindPropertyRelative(nameof(_gameSetting));
-            //var value = ((FloatSetting)_gameSetting.objectReferenceValue).value;
-            //EditorGUILayout.LabelField("(", labelOptions);
-            //EditorGUI.BeginDisabledGroup(true);
-            //EditorGUILayout.FloatField(value);
-            //EditorGUI.EndDisabledGroup();
-            //EditorGUILayout.LabelField("-", labelOptions);
-            //EditorGUILayout.PropertyField(adjustment, floatContent);
-            //EditorGUILayout.LabelField(")", labelOptions);
-            //EditorGUILayout.LabelField("/", labelOptions);
-            //EditorGUILayout.PropertyField(ratio, floatContent);
-            //EditorGUILayout.LabelField("=", labelOptions);
-            //EditorGUILayout.LabelField($"{((value - adjustment.floatValue) / ratio.floatValue).ToString("0.##")}");
-            //EditorGUILayout.EndHorizontal();
+            ratio.floatValue = (maxValue - minValue) / (max - min);
+            adjustment.floatValue = -(min - minValue / ratio.floatValue);
+
+            //EditorGUILayout.LabelField($"Ratio: {ratio.floatValue}");
+            //EditorGUILayout.LabelField($"Adjustment: {adjustment.floatValue}");
 
             property = adjustment.Copy();
-            if(property.NextVisible(true))
+            while(property.NextVisible(false) 
+                && property.propertyPath.StartsWith("selectableInterpreter."))
             {
-                while(property.NextVisible(false) 
-                    && property.propertyPath.StartsWith("selectableInterpreter."))
-                {
-                    EditorGUILayout.PropertyField(property, true);
-                }
+                EditorGUILayout.PropertyField(property, true);
             }
 
             EditorGUI.EndProperty();

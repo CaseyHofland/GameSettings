@@ -32,10 +32,10 @@ namespace GameSettings.UI
             }
         }
 
-        public override void ResetView()
+        public override void ResetUI()
         {
-            base.ResetView();
-            dropdownInterpreter?.ResetView(dropdown);
+            base.ResetUI();
+            dropdownInterpreter?.ResetUI(dropdown);
         }
     }
 }

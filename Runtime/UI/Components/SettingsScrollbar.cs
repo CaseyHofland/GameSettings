@@ -32,10 +32,10 @@ namespace GameSettings.UI
             }
         }
 
-        public override void ResetView()
+        public override void ResetUI()
         {
-            base.ResetView();
-            scrollbarInterpreter?.ResetView(scrollbar);
+            base.ResetUI();
+            scrollbarInterpreter?.ResetUI(scrollbar);
         }
     }
 }

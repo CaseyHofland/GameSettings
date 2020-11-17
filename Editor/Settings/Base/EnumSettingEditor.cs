@@ -16,16 +16,11 @@ namespace GameSettings.Editor
 
         protected void DrawValue()
         {
-            var enumSetting = (EnumSetting)target;
 
             try
             {
-                EditorGUI.BeginChangeCheck();
-                var newValue = EditorGUILayout.EnumPopup(enumSetting.settingName, enumSetting.value);
-                if(EditorGUI.EndChangeCheck())
-                {
-                    enumSetting.value = newValue;
-                }
+                var enumSetting = (EnumSetting)target;
+                enumSetting.value = EditorGUILayout.EnumPopup(enumSetting.settingName, enumSetting.value);
             }
             catch(Exception e)
             {

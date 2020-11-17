@@ -14,6 +14,7 @@ namespace GameSettings.UI
         {
             if(inputFieldInterpreter != null)
             {
+                inputField.onValidateInput += inputFieldInterpreter.ValidateInput;
                 inputField.onValueChanged.AddListener(inputFieldInterpreter.ValueChanged);
                 inputField.onEndEdit.AddListener(inputFieldInterpreter.EndedEdit);
             }
@@ -29,15 +30,16 @@ namespace GameSettings.UI
         {
             if(inputFieldInterpreter != null)
             {
+                inputField.onValidateInput -= inputFieldInterpreter.ValidateInput;
                 inputField.onValueChanged.RemoveListener(inputFieldInterpreter.ValueChanged);
                 inputField.onEndEdit.RemoveListener(inputFieldInterpreter.EndedEdit);
             }
         }
 
-        public override void ResetView()
+        public override void ResetUI()
         {
-            base.ResetView();
-            inputFieldInterpreter?.ResetView(inputField);
+            base.ResetUI();
+            inputFieldInterpreter?.ResetUI(inputField);
         }
     }
 }

@@ -9,15 +9,7 @@ namespace GameSettings.UI.TMPro
             tmp_InputField.SetTextWithoutNotify(gameSetting.value);
         }
 
-        public void ResetView(TMP_InputField tmp_InputField)
-        {
-        }
-
-        public void Selected(string value)
-        {
-        }
-        
-        public void Deselected(string value)
+        public void ResetUI(TMP_InputField tmp_InputField)
         {
         }
     }

@@ -9,8 +9,13 @@ namespace GameSettings.UI
             inputField.SetTextWithoutNotify(gameSetting.value);
         }
 
-        public virtual void ResetView(InputField inputField)
+        public virtual void ResetUI(InputField inputField)
         {
+        }
+
+        public char ValidateInput(string text, int charIndex, char addedChar)
+        {
+            return addedChar;
         }
 
         public virtual void ValueChanged(string value)

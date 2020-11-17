@@ -1,8 +1,8 @@
 {
   "name": "com.caseydecoder.gamesettings",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "displayName": "Game Settings",
-  "description": "Easily configure and create game settings for Unity.",
+  "description": "Easily configure and create game settings for Unity!\n\nGame Settings is an extensive suite of Settings that handle saving and loading, as well as making it easy to couple them to UI. Never struggle with settings again!\n\nNote that this package is made currently in preview for the Unity Open Project #1 game currently in development. Features and documentation may not be completed or fully tested yet.",
   "unity": "2019.3",
   "keywords": [
     "Settings",

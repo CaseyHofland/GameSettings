@@ -22,7 +22,7 @@ namespace GameSettings.UI.TMPro
             tmp_Dropdown.SetValueWithoutNotify(alteredValue);
         }
 
-        public void ResetView(TMP_Dropdown tmp_Dropdown)
+        public void ResetUI(TMP_Dropdown tmp_Dropdown)
         {
             tmp_Dropdown.ClearOptions();
 

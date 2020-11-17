@@ -14,10 +14,9 @@ namespace GameSettings.UI.TMPro
         {
             if(tmp_InputFieldInterpreter != null)
             {
+                tmp_InputField.onValidateInput += tmp_InputFieldInterpreter.ValidateInput;
                 tmp_InputField.onValueChanged.AddListener(tmp_InputFieldInterpreter.ValueChanged);
                 tmp_InputField.onEndEdit.AddListener(tmp_InputFieldInterpreter.EndedEdit);
-                tmp_InputField.onSelect.AddListener(tmp_InputFieldInterpreter.Selected);
-                tmp_InputField.onDeselect.AddListener(tmp_InputFieldInterpreter.Deselected);
             }
         }
 
@@ -31,17 +30,16 @@ namespace GameSettings.UI.TMPro
         {
             if(tmp_InputFieldInterpreter != null)
             {
+                tmp_InputField.onValidateInput -= tmp_InputFieldInterpreter.ValidateInput;
                 tmp_InputField.onValueChanged.RemoveListener(tmp_InputFieldInterpreter.ValueChanged);
                 tmp_InputField.onEndEdit.RemoveListener(tmp_InputFieldInterpreter.EndedEdit);
-                tmp_InputField.onSelect.RemoveListener(tmp_InputFieldInterpreter.Selected);
-                tmp_InputField.onDeselect.RemoveListener(tmp_InputFieldInterpreter.Deselected);
             }
         }
 
-        public override void ResetView()
+        public override void ResetUI()
         {
-            base.ResetView();
-            tmp_InputFieldInterpreter?.ResetView(tmp_InputField);
+            base.ResetUI();
+            tmp_InputFieldInterpreter?.ResetUI(tmp_InputField);
         }
     }
 }

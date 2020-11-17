@@ -15,7 +15,7 @@ namespace GameSettings.UI
         }
 
         public abstract void UpdateView(Selectable selectable);
-        public abstract void ResetView(Selectable selectable);
+        public abstract void ResetUI(Selectable selectable);
     }
 
     public abstract class SettingInterpreter<T> : SettingInterpreter, ISettingSelectableInterpreter<T> where T : GameSetting
@@ -27,7 +27,7 @@ namespace GameSettings.UI
         }
 
         public override void UpdateView(Selectable selectable) { }
-        public override void ResetView(Selectable selectable) { }
+        public override void ResetUI(Selectable selectable) { }
     }
 }
 

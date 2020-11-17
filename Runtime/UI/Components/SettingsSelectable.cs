@@ -23,22 +23,22 @@ namespace GameSettings.UI
             }
         }
 
-        public bool forceView = false;
+        [Tooltip("Enabling this setting may force values on the UI Component.")] public bool forceUI = false;
 
         [SerializeReference] protected ISettingSelectableInterpreter selectableInterpreter;
 
         protected virtual void LateUpdate()
         {
-            if(forceView)
+            if(forceUI)
             {
-                ResetView();
+                ResetUI();
             }
             selectableInterpreter?.UpdateView(selectable);
         }
 
-        public virtual void ResetView()
+        public virtual void ResetUI()
         {
-            selectableInterpreter?.ResetView(selectable);
+            selectableInterpreter?.ResetUI(selectable);
         }
     }
 }

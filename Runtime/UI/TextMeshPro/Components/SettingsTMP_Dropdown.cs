@@ -32,10 +32,10 @@ namespace GameSettings.UI.TMPro
             }
         }
 
-        public override void ResetView()
+        public override void ResetUI()
         {
-            base.ResetView();
-            tmp_DropdownInterpreter?.ResetView(tmp_Dropdown);
+            base.ResetUI();
+            tmp_DropdownInterpreter?.ResetUI(tmp_Dropdown);
         }
     }
 }

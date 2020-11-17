@@ -16,7 +16,7 @@ namespace GameSettings.UI.Editor
     {
         protected SerializedProperty _gameSetting;
         protected SerializedProperty selectableInterpreter;
-        protected SerializedProperty forceView;
+        protected SerializedProperty forceUI;
 
         private string[] displayOptions;
         private GameSetting[] gameSettings;
@@ -29,7 +29,7 @@ namespace GameSettings.UI.Editor
             // Get Properties
             _gameSetting = serializedObject.FindProperty(nameof(_gameSetting));
             selectableInterpreter = serializedObject.FindProperty(nameof(selectableInterpreter));
-            forceView = serializedObject.FindProperty(nameof(forceView));
+            forceUI = serializedObject.FindProperty(nameof(forceUI));
 
             // Get the Corresponding Interface Type
             Selectable selectable = (Selectable)typeof(SettingsSelectable).GetProperty(nameof(selectable)).GetValue(target);
@@ -137,10 +137,11 @@ namespace GameSettings.UI.Editor
         {
             serializedObject.Update();
 
-            EditorGUI.BeginChangeCheck();
-            index = EditorGUILayout.Popup("Setting", index, displayOptions);
-            if(EditorGUI.EndChangeCheck())
+            var newIndex = Array.IndexOf(gameSettings, _gameSetting.objectReferenceValue) + 1;
+            newIndex = EditorGUILayout.Popup("Setting", newIndex, displayOptions);
+            if(index != newIndex)
             {
+                index = newIndex;
                 if(index > 0)
                 {
                     var gameSetting = gameSettings[index - 1];
@@ -172,16 +173,16 @@ namespace GameSettings.UI.Editor
                 EditorGUILayout.PropertyField(selectableInterpreter, true);
 
                 EditorGUILayout.BeginHorizontal();
-                EditorGUILayout.PropertyField(forceView, GUILayout.ExpandWidth(false));
-                if(forceView.boolValue)
+                EditorGUILayout.PropertyField(forceUI, GUILayout.ExpandWidth(false));
+                if(forceUI.boolValue)
                 {
-                    GUILayout.Toggle(true, "Reset View", GUI.skin.button);
+                    GUILayout.Toggle(true, "Reset UI", GUI.skin.button);
                 }
                 else
                 {
-                    if(GUILayout.Button("Reset View"))
+                    if(GUILayout.Button("Reset UI"))
                     {
-                        ((SettingsSelectable)target).ResetView();
+                        ((SettingsSelectable)target).ResetUI();
                         EditorApplication.QueuePlayerLoopUpdate();
                     }
                 }

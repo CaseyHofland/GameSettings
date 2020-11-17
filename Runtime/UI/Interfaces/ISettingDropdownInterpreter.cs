@@ -5,7 +5,7 @@ namespace GameSettings.UI
     public interface ISettingDropdownInterpreter : ISettingSelectableInterpreter
     {
         void UpdateView(Dropdown dropdown);
-        void ResetView(Dropdown dropdown);
+        void ResetUI(Dropdown dropdown);
         void ValueChanged(int value);
     }
 

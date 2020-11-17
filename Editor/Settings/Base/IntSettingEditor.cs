@@ -16,18 +16,12 @@ namespace GameSettings.Editor
 
         protected void DrawValue(bool delayed = false)
         {
-            var intSetting = (IntSetting)target;
-
             try
             {
-                EditorGUI.BeginChangeCheck();
-                var newValue = delayed
+                var intSetting = (IntSetting)target;
+                intSetting.value = delayed
                     ? EditorGUILayout.DelayedIntField(intSetting.settingName, intSetting.value)
                     : EditorGUILayout.IntField(intSetting.settingName, intSetting.value);
-                if(EditorGUI.EndChangeCheck())
-                {
-                    intSetting.value = newValue;
-                }
             }
             catch(Exception e)
             {

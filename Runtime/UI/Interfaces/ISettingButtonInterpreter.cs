@@ -5,7 +5,7 @@ namespace GameSettings.UI
     public interface ISettingButtonInterpreter : ISettingSelectableInterpreter
     {
         void UpdateView(Button button);
-        void ResetView(Button button);
+        void ResetUI(Button button);
         void Clicked();
     }
 

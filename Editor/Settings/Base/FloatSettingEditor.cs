@@ -16,18 +16,13 @@ namespace GameSettings.Editor
 
         protected void DrawValue(bool delayed = false)
         {
-            var floatSetting = (FloatSetting)target;
 
             try
             {
-                EditorGUI.BeginChangeCheck();
-                var newValue = delayed
+                var floatSetting = (FloatSetting)target;
+                floatSetting.value = delayed
                     ? EditorGUILayout.DelayedFloatField(floatSetting.settingName, floatSetting.value)
                     : EditorGUILayout.FloatField(floatSetting.settingName, floatSetting.value);
-                if(EditorGUI.EndChangeCheck())
-                {
-                    floatSetting.value = newValue;
-                }
             }
             catch(Exception e)
             {

@@ -5,7 +5,7 @@ namespace GameSettings.UI
     public interface ISettingScrollbarInterpreter : ISettingSelectableInterpreter
     {
         void UpdateView(Scrollbar scrollbar);
-        void ResetView(Scrollbar scrollbar);
+        void ResetUI(Scrollbar scrollbar);
         void ValueChanged(float value);
     }
 

@@ -32,10 +32,10 @@ namespace GameSettings.UI
             }
         }
 
-        public override void ResetView()
+        public override void ResetUI()
         {
-            base.ResetView();
-            toggleInterpreter?.ResetView(toggle);
+            base.ResetUI();
+            toggleInterpreter?.ResetUI(toggle);
         }
     }
 }

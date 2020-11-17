@@ -32,7 +32,7 @@ namespace GameSettings.UI
             dropdown.SetValueWithoutNotify(alteredValue);
         }
 
-        public virtual void ResetView(Dropdown dropdown)
+        public virtual void ResetUI(Dropdown dropdown)
         {
             dropdown.ClearOptions();
 
@@ -57,7 +57,7 @@ namespace GameSettings.UI
             slider.SetValueWithoutNotify(alteredValue);
         }
 
-        public virtual void ResetView(Slider slider)
+        public virtual void ResetUI(Slider slider)
         {
             slider.wholeNumbers = true;
             slider.minValue = 1;

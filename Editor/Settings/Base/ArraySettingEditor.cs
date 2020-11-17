@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace GameSettings.Editor
 {
-    [CustomEditor(typeof(BoolSetting), true)]
-    public class BoolSettingEditor : GameSettingEditor
+    [CustomEditor(typeof(ArraySetting), true)]
+    public class ArraySettingEditor : GameSettingEditor
     {
         public override void OnInspectorGUI()
         {
@@ -16,16 +16,10 @@ namespace GameSettings.Editor
 
         protected void DrawValue()
         {
-            var boolSetting = (BoolSetting)target;
-
             try
             {
-                EditorGUI.BeginChangeCheck();
-                var newValue = EditorGUILayout.Toggle(boolSetting.settingName, boolSetting.value);
-                if(EditorGUI.EndChangeCheck())
-                {
-                    boolSetting.value = newValue;
-                }
+                var arraySetting = (ArraySetting)target;
+                arraySetting.value = EditorGUILayout.Popup(arraySetting.settingName, arraySetting.value, Array.ConvertAll(arraySetting.objectArray, value => value.ToString()));
             }
             catch(Exception e)
             {
@@ -34,4 +28,3 @@ namespace GameSettings.Editor
         }
     }
 }
-
