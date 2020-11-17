@@ -11,16 +11,12 @@ namespace GameSettings.Editor
         private SerializedProperty audioMixer;
         private SerializedProperty exposedParameter;
 
-        private float value;
-
         protected override void OnEnable()
         {
             base.OnEnable();
 
             audioMixer = serializedObject.FindProperty(nameof(audioMixer));
             exposedParameter = serializedObject.FindProperty(nameof(exposedParameter));
-
-            value = ((AudioSetting)target).value;
         }
 
         public override void OnInspectorGUI()
