@@ -71,9 +71,7 @@ namespace GameSettings.UI.Editor
             }
 
             // Find all classes of the Interface Type
-            var libraryPath = Application.dataPath.Remove(Application.dataPath.LastIndexOf('/') + 1).Replace('/', '\\') + "Library";
             var interfaceTypes = (from assembly in AppDomain.CurrentDomain.GetAssemblies()
-                                  where assembly.Location.StartsWith(libraryPath)
                                   from type in assembly.GetTypes()
                                   where !type.IsAbstract
                                   where interfaceType.IsAssignableFrom(type)
@@ -137,7 +135,9 @@ namespace GameSettings.UI.Editor
         {
             serializedObject.Update();
 
-            var newIndex = Array.IndexOf(gameSettings, _gameSetting.objectReferenceValue) + 1;
+            var newIndex = _gameSetting.objectReferenceValue
+                ? Array.IndexOf(gameSettings, _gameSetting.objectReferenceValue) + 1
+                : 0;
             newIndex = EditorGUILayout.Popup("Setting", newIndex, displayOptions);
             if(index != newIndex)
             {
