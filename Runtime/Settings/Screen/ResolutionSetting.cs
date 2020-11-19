@@ -7,8 +7,8 @@ namespace GameSettings
     {
         public override string settingName => "Resolution";
 
-        public override Resolution[] array => Screen.resolutions;
-        public override Resolution arrayValue 
+        protected override Resolution[] array => Screen.resolutions;
+        public override Resolution current 
         {
             get => Screen.currentResolution;
             protected set => Screen.SetResolution(value.width, value.height, Screen.fullScreenMode, value.refreshRate);

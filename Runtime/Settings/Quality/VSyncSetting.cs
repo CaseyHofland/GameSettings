@@ -7,7 +7,7 @@ namespace GameSettings
     {
         public override string settingName => "VSync";
 
-        public override VBlank enumValue
+        public override VBlank value
         {
             get => (VBlank)QualitySettings.vSyncCount;
             set => QualitySettings.vSyncCount = (int)value;

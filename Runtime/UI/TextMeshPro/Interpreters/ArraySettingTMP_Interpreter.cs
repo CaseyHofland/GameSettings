@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 
 namespace GameSettings.UI.TMPro
@@ -10,7 +9,11 @@ namespace GameSettings.UI.TMPro
         {
             tmp_Dropdown.ClearOptions();
 
-            var options = new List<string>(Array.ConvertAll(gameSetting.objectArray, value => value.ToString()));
+            var options = new List<string>();
+            for(int i = 0; i < arrayLength; i++)
+            {
+                options.Add(gameSetting[i].ToString());
+            }
             if(descending)
             {
                 options.Reverse();

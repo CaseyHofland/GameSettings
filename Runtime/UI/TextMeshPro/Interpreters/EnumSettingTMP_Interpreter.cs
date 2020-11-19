@@ -26,7 +26,7 @@ namespace GameSettings.UI.TMPro
         {
             tmp_Dropdown.ClearOptions();
 
-            var options = new List<string>(Enum.GetNames(gameSetting.value.GetType()));
+            var options = new List<string>(Enum.GetNames(gameSetting.enumValue.GetType()));
 
             tmp_Dropdown.AddOptions(options);
             tmp_Dropdown.RefreshShownValue();

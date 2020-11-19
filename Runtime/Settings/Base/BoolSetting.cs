@@ -4,6 +4,8 @@ namespace GameSettings
 {
     public abstract class BoolSetting : GameSetting<bool>
     {
+        [SerializeField] [HideInInspector] private bool serializedValue;
+
         public override void Save()
         {
             PlayerPrefs.SetInt(saveKey, value ? 1 : 0);

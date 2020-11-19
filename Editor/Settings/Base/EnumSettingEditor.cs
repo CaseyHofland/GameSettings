@@ -7,6 +7,17 @@ namespace GameSettings.Editor
     [CustomEditor(typeof(EnumSetting), true)]
     public class EnumSettingEditor : GameSettingEditor
     {
+        private SerializedProperty serializedValue;
+        protected EnumSetting enumSetting => (EnumSetting)target;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            serializedValue = serializedObject.FindProperty(nameof(serializedValue));
+            serializedValue.intValue = enumSetting.intValue;
+            serializedObject.ApplyModifiedPropertiesWithoutUndo();
+        }
+
         public override void OnInspectorGUI()
         {
             DrawLoadOnStartupToggle();
@@ -16,11 +27,13 @@ namespace GameSettings.Editor
 
         protected void DrawValue()
         {
-
             try
             {
-                var enumSetting = (EnumSetting)target;
-                enumSetting.value = EditorGUILayout.EnumPopup(enumSetting.settingName, enumSetting.value);
+                serializedObject.Update();
+                serializedValue.intValue = EditorGUILayout.Popup(enumSetting.settingName, serializedValue.intValue, Enum.GetNames(enumSetting.enumValue.GetType()));
+                serializedObject.ApplyModifiedProperties();
+
+                enumSetting.intValue = serializedValue.intValue;
             }
             catch(Exception e)
             {

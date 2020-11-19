@@ -10,13 +10,12 @@ namespace GameSettings
 
         public bool applyExpensiveChanges = false;
 
-        public override string[] array => QualitySettings.names;
-        public override string arrayValue 
+        protected override string[] array => QualitySettings.names;
+        public override string current 
         { 
             get => array[QualitySettings.GetQualityLevel()];
             protected set => QualitySettings.SetQualityLevel(Array.IndexOf(array, value), applyExpensiveChanges);
         }
-
     }
 }
 

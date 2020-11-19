@@ -4,6 +4,8 @@ namespace GameSettings
 {
     public abstract class StringSetting : GameSetting<string>
     {
+        [SerializeField] [HideInInspector] private string serializedValue;
+
         public override void Save()
         {
             PlayerPrefs.SetString(saveKey, value);

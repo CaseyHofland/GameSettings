@@ -9,7 +9,7 @@ namespace GameSettings.UI
     {
         [Tooltip("Show the values in descending order.")] public bool descending = false;
 
-        protected int enumLength => Enum.GetValues(gameSetting.value.GetType()).Length;
+        protected int enumLength => Enum.GetValues(gameSetting.enumValue.GetType()).Length;
         protected virtual int alteredValue
         {
             get => descending ? enumLength - 1 - gameSetting.intValue : gameSetting.intValue;
@@ -36,7 +36,7 @@ namespace GameSettings.UI
         {
             dropdown.ClearOptions();
 
-            var options = new List<string>(Enum.GetNames(gameSetting.value.GetType()));
+            var options = new List<string>(Enum.GetNames(gameSetting.enumValue.GetType()));
             if(descending)
             {
                 options.Reverse();

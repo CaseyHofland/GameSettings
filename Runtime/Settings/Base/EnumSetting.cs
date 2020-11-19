@@ -3,12 +3,22 @@ using UnityEngine;
 
 namespace GameSettings
 {
-    public abstract class EnumSetting : GameSetting<Enum>
+    public abstract class EnumSetting : GameSetting
     {
+        [SerializeField] [HideInInspector] private int serializedValue;
+
+        public override object objectValue 
+        { 
+            get => (object)enumValue;
+            set => enumValue = (Enum)value;
+        }
+
+        public abstract Enum enumValue { get; set; }
+
         public int intValue
         {
-            get => (int)(object)value;
-            set => this.value = (Enum)Enum.ToObject(this.value.GetType(), value);
+            get => (int)(object)enumValue;
+            set => enumValue = (Enum)Enum.ToObject(enumValue.GetType(), value);
         }
 
         public override void Save()
@@ -28,13 +38,13 @@ namespace GameSettings
 
     public abstract class EnumSetting<T> : EnumSetting where T : Enum
     {
-        public override Enum value 
+        public override Enum enumValue 
         { 
-            get => enumValue;
-            set => enumValue = (T)value;
+            get => (Enum)value;
+            set => this.value = (T)value;
         }
 
-        public abstract T enumValue { get; set; }
+        public abstract T value { get; set; }
     }
 }
 

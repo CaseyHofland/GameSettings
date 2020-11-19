@@ -27,10 +27,11 @@ namespace GameSettings.Editor
             GameSetting gameSetting = (GameSetting)target;
 
             EditorGUI.BeginChangeCheck();
-            var loadOnStartup = EditorGUILayout.Toggle("Load on Startup", Array.IndexOf(settingsStartupLoader.setingsToLoadOnStartup, gameSetting) != -1);
+            var loadOnStartup = EditorGUILayout.Toggle("Load on Startup", Array.IndexOf(settingsStartupLoader.settingsToLoadOnStartup, gameSetting) != -1);
             if(EditorGUI.EndChangeCheck())
             {
-                var temp = new List<GameSetting>(settingsStartupLoader.setingsToLoadOnStartup);
+                Undo.RecordObject(settingsStartupLoader, "Undo Game Setting Load on Startup Change");
+                var temp = new List<GameSetting>(settingsStartupLoader.settingsToLoadOnStartup);
                 if(loadOnStartup)
                 {
                     temp.Add(gameSetting);
@@ -39,7 +40,7 @@ namespace GameSettings.Editor
                 {
                     temp.Remove(gameSetting);
                 }
-                settingsStartupLoader.setingsToLoadOnStartup = temp.ToArray();
+                settingsStartupLoader.settingsToLoadOnStartup = temp.ToArray();
             }
         }
 

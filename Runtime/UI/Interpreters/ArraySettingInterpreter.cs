@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,7 +8,7 @@ namespace GameSettings.UI
     {
         [Tooltip("Show the values in descending order.")] public bool descending = false;
 
-        protected int arrayLength => gameSetting.objectArray.Length;
+        protected int arrayLength => gameSetting.Length;
         protected virtual int alteredValue
         {
             get => descending ? arrayLength - 1 - gameSetting.value : gameSetting.value;
@@ -36,7 +35,13 @@ namespace GameSettings.UI
         {
             dropdown.ClearOptions();
 
-            var options = new List<string>(Array.ConvertAll(gameSetting.objectArray, value => value.ToString()));
+
+            var options = new List<string>();
+            for(int i = 0; i < arrayLength; i++)
+            {
+                options.Add(gameSetting[i].ToString());
+            }
+
             if(descending)
             {
                 options.Reverse();

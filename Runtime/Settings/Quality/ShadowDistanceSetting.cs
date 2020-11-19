@@ -7,10 +7,12 @@ namespace GameSettings
     {
         public override string settingName => "Shadow Distance";
 
+        public override float min => 0f;
+
         public override float value
         {
             get => QualitySettings.shadowDistance;
-            set => QualitySettings.shadowDistance = value;
+            set => QualitySettings.shadowDistance = Mathf.Max(value, min);
         }
     }
 }

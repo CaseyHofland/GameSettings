@@ -1,18 +1,31 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 namespace GameSettings
 {
     public abstract class ArraySetting : GameSetting<int>
     {
-        public override int value
+        [SerializeField] [HideInInspector] private int serializedValue;
+
+        protected abstract object[] objectArray { get; }
+        public abstract object objectCurrent { get; protected set; }
+
+        public override object objectValue
         {
-            get => Array.IndexOf(objectArray, objectArrayValue);
-            set => objectArrayValue = objectArray[value];
+            get => (object)value;
+            set => this.value = (int)value;
         }
 
-        public abstract object[] objectArray { get; }
-        public abstract object objectArrayValue { get; protected set; }
+        public override int value
+        {
+            get => Array.IndexOf(objectArray, objectCurrent);
+            set => objectCurrent = objectArray[value];
+        }
+
+        public object this[int index] => objectArray[index];
+        public ReadOnlyCollection<object> objectCollection => Array.AsReadOnly(objectArray);
+        public int Length => objectArray.Length;
 
         public override void Save()
         {
@@ -31,14 +44,17 @@ namespace GameSettings
 
     public abstract class ArraySetting<T> : ArraySetting
     {
-        public override object[] objectArray => Array.ConvertAll(array, value => (object)value);
-        public override object objectArrayValue
+        protected override object[] objectArray => Array.ConvertAll(array, value => (object)value);
+        public override object objectCurrent 
         {
-            get => arrayValue;
-            protected set => arrayValue = (T)value;
+            get => (object)current;
+            protected set => current = (T)value;
         }
 
-        public abstract T[] array { get; }
-        public abstract T arrayValue { get; protected set; }
+        public new T this[int index] => array[index];
+        public ReadOnlyCollection<T> collection => Array.AsReadOnly(array);
+
+        protected abstract T[] array { get; }
+        public abstract T current { get; protected set; }
     }
 }

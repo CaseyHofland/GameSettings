@@ -7,6 +7,17 @@ namespace GameSettings.Editor
     [CustomEditor(typeof(StringSetting), true)]
     public class StringSettingEditor : GameSettingEditor
     {
+        private SerializedProperty serializedValue;
+        private StringSetting stringSetting => (StringSetting)target;
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            serializedValue = serializedObject.FindProperty(nameof(serializedValue));
+            serializedValue.stringValue = stringSetting.value;
+            serializedObject.ApplyModifiedProperties();
+        }
+
         public override void OnInspectorGUI()
         {
             DrawLoadOnStartupToggle();
@@ -14,14 +25,15 @@ namespace GameSettings.Editor
             DrawProperties();
         }
 
-        protected void DrawValue(bool delayed = false)
+        protected void DrawValue()
         {
             try
             {
-                var stringSetting = (StringSetting)target;
-                stringSetting.value = delayed
-                    ? EditorGUILayout.DelayedTextField(stringSetting.settingName, stringSetting.value)
-                    : EditorGUILayout.TextField(stringSetting.settingName, stringSetting.value);
+                serializedObject.Update();
+                serializedValue.stringValue = EditorGUILayout.TextField(stringSetting.settingName, serializedValue.stringValue);
+                serializedObject.ApplyModifiedProperties();
+
+                stringSetting.value = serializedValue.stringValue;
             }
             catch(Exception e)
             {

@@ -7,7 +7,7 @@ namespace GameSettings
     {
         public override string settingName => "Anti Aliasing";
 
-        public override AAFilteringOption enumValue 
+        public override AAFilteringOption value 
         {
             get
             {

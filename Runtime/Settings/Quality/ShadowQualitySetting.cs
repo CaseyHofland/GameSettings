@@ -7,7 +7,7 @@ namespace GameSettings
     {
         public override string settingName => "Shadow Quality";
 
-        public override ShadowQuality enumValue
+        public override ShadowQuality value
         {
             get => QualitySettings.shadows;
             set => QualitySettings.shadows = value;
