@@ -8,7 +8,11 @@ namespace GameSettings.Editor
         public override void OnInspectorGUI()
         {
             EditorGUILayout.HelpBox("Screen settings aren't applied in the Editor, only in Builds.", MessageType.Info, true);
-            base.OnInspectorGUI();
+
+            EditorGUI.BeginDisabledGroup(true);
+            DrawValue();
+            EditorGUI.EndDisabledGroup();
+            DrawProperties();
         }
     }
 }
