@@ -5,11 +5,11 @@ namespace GameSettings
 {
     public class SettingsStartupLoader : ScriptableObject
     {
-        public GameSetting[] setingsToLoadOnStartup = Array.Empty<GameSetting>();
+        public GameSetting[] settingsToLoadOnStartup = Array.Empty<GameSetting>();
 
         private void Awake()
         {
-            foreach(GameSetting setting in setingsToLoadOnStartup)
+            foreach(GameSetting setting in settingsToLoadOnStartup)
             {
                 setting.Load();
             }

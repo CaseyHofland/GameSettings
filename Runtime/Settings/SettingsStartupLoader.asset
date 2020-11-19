@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cac783fcd3f71744390207c6b9e8fbef, type: 3}
   m_Name: SettingsStartupLoader
   m_EditorClassIdentifier: 
-  setingsToLoadOnStartup: []
+  settingsToLoadOnStartup: []
