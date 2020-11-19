@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Undo functionality for every base Setting.
 - Min max values for IntSetting and FloatSetting. If both of these are set, the inspector reflects this with a slider.
 - Useful hints added to certain Setting Editors that could use it.
-- Quality Settings from A to R.
+- Quality Settings Implementations.
 
 ### Removed
 - FullScreenModeSetting wasn't a reliable setting to change. Instead, use FullScreenSetting.
