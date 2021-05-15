@@ -1,0 +1,32 @@
+{
+    "name": "CaseyDeCoder.GameSettings.UIWitches",
+    "rootNamespace": "GameSettings.UIWitches",
+    "references": [
+        "GUID:198bd4ee5fe496e41a6df4e06c87be30",
+        "GUID:90e9e789315a4e34095e8d9c254271fa",
+        "GUID:2bafac87e7f4b9b418d9448d219b01ab"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [
+        "CASEYDECODER_UIWITCHES",
+        "UNITY_UI"
+    ],
+    "versionDefines": [
+        {
+            "name": "com.caseydecoder.uiwitches",
+            "expression": "0.1.0-pre",
+            "define": "CASEYDECODER_UIWITCHES"
+        },
+        {
+            "name": "com.unity.ugui",
+            "expression": "1.0",
+            "define": "UNITY_UI"
+        }
+    ],
+    "noEngineReferences": false
+}
