@@ -1,9 +1,7 @@
 {
-    "name": "CaseyDeCoder.GameSettings.Editor",
-    "rootNamespace": "GameSettings.Editor",
-    "references": [
-        "GUID:198bd4ee5fe496e41a6df4e06c87be30"
-    ],
+    "name": "CaseyDeCoder.GameSettings",
+    "rootNamespace": "GameSettings",
+    "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
