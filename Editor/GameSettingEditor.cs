@@ -9,7 +9,7 @@ namespace GameSettings2.Editor
     public class GameSettingEditor : UnityEditor.Editor
     {
         protected SerializedProperty serializedValue;
-        protected dynamic dynamicSerializedValue
+        protected object dynamicSerializedValue
         {
             get
             {
@@ -72,72 +72,73 @@ namespace GameSettings2.Editor
                 switch (serializedValue.propertyType)
                 {
                     case SerializedPropertyType.AnimationCurve:
-                        serializedValue.animationCurveValue = value;
+                        serializedValue.animationCurveValue = (AnimationCurve)value;
                         break;
                     case SerializedPropertyType.ArraySize:
-                        serializedValue.arraySize = value;
+                        serializedValue.arraySize = (int)value;
                         break;
                     case SerializedPropertyType.Boolean:
-                        serializedValue.boolValue = value;
+                        serializedValue.boolValue = (bool)value;
                         break;
                     case SerializedPropertyType.Bounds:
-                        serializedValue.boundsValue = value;
+                        serializedValue.boundsValue = (Bounds)value;
                         break;
                     case SerializedPropertyType.BoundsInt:
-                        serializedValue.boundsIntValue = value;
+                        serializedValue.boundsIntValue = (BoundsInt)value;
                         break;
                     //case SerializedPropertyType.Character:
                     case SerializedPropertyType.Color:
-                        serializedValue.colorValue = value;
+                        serializedValue.colorValue = (Color)value;
                         break;
                     case SerializedPropertyType.Enum:
-                        serializedValue.enumValueIndex = value is Enum ? (int)(object)value : (int)value;
+                        //serializedValue.enumValueIndex = value is Enum ? (int)(object)value : (int)value;
+                        serializedValue.enumValueIndex = (int)value;
                         break;
                     case SerializedPropertyType.ExposedReference:
-                        serializedValue.exposedReferenceValue = value;
+                        serializedValue.exposedReferenceValue = (UnityEngine.Object)value;
                         break;
                     //case SerializedPropertyType.FixedBufferSize:
                     case SerializedPropertyType.Float:
-                        serializedValue.floatValue = value;
+                        serializedValue.floatValue = (float)value;
                         break;
                     //case SerializedPropertyType.Generic:
                     //case SerializedPropertyType.Gradient:
                     case SerializedPropertyType.Integer:
-                        serializedValue.intValue = value;
+                        serializedValue.intValue = (int)value;
                         break;
                     //case SerializedPropertyType.LayerMask:
                     case SerializedPropertyType.ManagedReference:
                         serializedValue.managedReferenceValue = value;
                         break;
                     case SerializedPropertyType.ObjectReference:
-                        serializedValue.objectReferenceValue = value;
+                        serializedValue.objectReferenceValue = (UnityEngine.Object)value;
                         break;
                     case SerializedPropertyType.Quaternion:
-                        serializedValue.quaternionValue = value;
+                        serializedValue.quaternionValue = (Quaternion)value;
                         break;
                     case SerializedPropertyType.Rect:
-                        serializedValue.rectValue = value;
+                        serializedValue.rectValue = (Rect)value;
                         break;
                     case SerializedPropertyType.RectInt:
-                        serializedValue.rectIntValue = value;
+                        serializedValue.rectIntValue = (RectInt)value;
                         break;
                     case SerializedPropertyType.String:
-                        serializedValue.stringValue = value;
+                        serializedValue.stringValue = (string)value;
                         break;
                     case SerializedPropertyType.Vector2:
-                        serializedValue.vector2Value = value;
+                        serializedValue.vector2Value = (Vector2)value;
                         break;
                     case SerializedPropertyType.Vector2Int:
-                        serializedValue.vector2IntValue = value;
+                        serializedValue.vector2IntValue = (Vector2Int)value;
                         break;
                     case SerializedPropertyType.Vector3:
-                        serializedValue.vector3Value = value;
+                        serializedValue.vector3Value = (Vector3)value;
                         break;
                     case SerializedPropertyType.Vector3Int:
-                        serializedValue.vector3IntValue = value;
+                        serializedValue.vector3IntValue = (Vector3Int)value;
                         break;
                     case SerializedPropertyType.Vector4:
-                        serializedValue.vector4Value = value;
+                        serializedValue.vector4Value = (Vector4)value;
                         break;
                 }
             }
@@ -158,7 +159,7 @@ namespace GameSettings2.Editor
                 set => settingNameProperty.SetValue(target, value);
             }
 
-            public dynamic value
+            public object value
             {
                 get => valueProperty.GetValue(target);
                 set => valueProperty.SetValue(target, value);

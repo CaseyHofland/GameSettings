@@ -18,13 +18,13 @@ namespace GameSettings2.Editor
             protected readonly PropertyInfo arrayProperty;
             protected readonly PropertyInfo currentProperty;
 
-            public dynamic[] array
+            public object[] array
             {
                 get => ((IEnumerable)arrayProperty.GetValue(target)).Cast<object>().ToArray();
                 set => arrayProperty.SetValue(target, value);
             }
 
-            public dynamic current
+            public object current
             {
                 get => currentProperty.GetValue(target);
                 set => currentProperty.SetValue(target, value);
@@ -43,7 +43,7 @@ namespace GameSettings2.Editor
             base.OnEnable();
 
             arraySetting = new ArraySetting(target);
-            displayOptions = Array.ConvertAll<dynamic, string>(arraySetting.array, item => item.ToString());
+            displayOptions = Array.ConvertAll(arraySetting.array, item => item.ToString());
         }
 
         public override void OnInspectorGUI()
@@ -51,7 +51,7 @@ namespace GameSettings2.Editor
             serializedObject.Update();
 
             arraySetting.value = EditorGUILayout.Popup(propertyLabel, serializedValue.intValue, displayOptions);
-            serializedValue.intValue = arraySetting.value;
+            serializedValue.intValue = (int)arraySetting.value;
 
             serializedObject.ApplyModifiedProperties();
         }
