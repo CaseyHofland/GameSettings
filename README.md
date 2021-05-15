@@ -1,6 +1,6 @@
 # Game Settings
-Easily configure and create game settings for Unity!
+Easily create and configure game settings for Unity!
 
-Game Settings is an extensive suite of Settings that handle saving and loading, as well as making it easy to couple them to UI. Never struggle with settings again!
+With Game Settings you can divide your settings up into tiny chunks. Easily create your own settings, or make use of the built in Quality, Screen or Audio Settings to speedily add configurable Game Settings to your game!
 
-Note that this package is made currently in preview for the Unity Open Project #1 game currently in development. Features and documentation may not be completed or fully tested yet.
+This package has integration support for [UIWitches](https://github.com/Casey-Hofland/UIWitches) (com.caseydecoder.uiwitches), a package that lets you manipulate your UI with ease to speed up your development even further!
