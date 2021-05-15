@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace GameSettings2
+namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "ResolutionSetting", menuName = "Game Settings 2/Screen/Resolution")]
+    [CreateAssetMenu(fileName = "ResolutionSetting", menuName = "Game Settings/Screen/Resolution")]
     public sealed class ResolutionSetting : ArraySetting<Resolution>
     {
         public override string settingName => "Resolution";

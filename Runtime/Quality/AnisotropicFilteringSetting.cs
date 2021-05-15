@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace GameSettings2
+namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "AnisotropicFilteringSetting", menuName = "Game Settings 2/Quality/Anisotropic Filtering")]
+    [CreateAssetMenu(fileName = "AnisotropicFilteringSetting", menuName = "Game Settings/Quality/Anisotropic Filtering")]
     public sealed class AnisotropicFilteringSetting : EnumSetting<AnisotropicFiltering>
     {
         public override string settingName => "Anisotropic Filtering";

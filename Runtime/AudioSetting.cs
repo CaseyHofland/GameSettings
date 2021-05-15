@@ -1,9 +1,9 @@
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace GameSettings2
+namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "AudioSetting", menuName = "Game Settings 2/Audio")]
+    [CreateAssetMenu(fileName = "AudioSetting", menuName = "Game Settings/Audio")]
     public sealed class AudioSetting : FloatSetting
     {
         public override string settingName => $"Audio " + (audioMixer ? $"{audioMixer.name} {exposedParameter}" : "Unassigned");

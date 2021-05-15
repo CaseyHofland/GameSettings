@@ -3,7 +3,7 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Audio;
 
-namespace GameSettings2.Editor
+namespace GameSettings.Editor
 {
     [CustomEditor(typeof(AudioSetting))]
     public class AudioSettingEditor : UnityEditor.Editor

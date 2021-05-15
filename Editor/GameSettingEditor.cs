@@ -3,7 +3,7 @@ using System.Reflection;
 using UnityEditor;
 using UnityEngine;
 
-namespace GameSettings2.Editor
+namespace GameSettings.Editor
 {
     [CustomEditor(typeof(GameSetting<>), true)]
     public class GameSettingEditor : UnityEditor.Editor

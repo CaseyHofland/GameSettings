@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace GameSettings2
+namespace GameSettings
 {
     public abstract class EnumSetting<TValue> : GameSetting<TValue> where TValue : Enum
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace GameSettings2
+namespace GameSettings
 {
     public abstract class FloatSetting : GameSetting<float>
     {

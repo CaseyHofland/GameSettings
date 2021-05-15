@@ -4,7 +4,7 @@ using System.Reflection;
 using UnityEditor;
 using System.Linq;
 
-namespace GameSettings2.Editor
+namespace GameSettings.Editor
 {
     [CustomEditor(typeof(ArraySetting<>), true)]
     public class ArraySettingEditor : GameSettingEditor

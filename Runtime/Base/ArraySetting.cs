@@ -2,7 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using UnityEngine;
 
-namespace GameSettings2
+namespace GameSettings
 {
     public abstract class ArraySetting<TValue> : GameSetting<int>
     {

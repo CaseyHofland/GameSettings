@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
 
-namespace GameSettings2
+namespace GameSettings
 {
-    [CreateAssetMenu(fileName = "MaximumLODLevelSetting", menuName = "Game Settings 2/Quality/Maximum LOD Level")]
+    [CreateAssetMenu(fileName = "MaximumLODLevelSetting", menuName = "Game Settings/Quality/Maximum LOD Level")]
     public class MaximumLodLevelSetting : IntSetting
     {
         public const int min = 0;
