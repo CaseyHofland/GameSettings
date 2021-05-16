@@ -50,6 +50,7 @@ namespace GameSettings.Editor
         {
             serializedObject.Update();
 
+            serializedValue.intValue = (int)arraySetting.value;
             arraySetting.value = EditorGUILayout.Popup(propertyLabel, serializedValue.intValue, displayOptions);
             serializedValue.intValue = (int)arraySetting.value;
 
