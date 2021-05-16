@@ -1,6 +1,6 @@
 {
   "name": "com.caseydecoder.gamesettings",
-  "version": "0.2.0-pre",
+  "version": "0.2.0-pre.2",
   "displayName": "Game Settings",
   "description": "Easily create and configure game settings for Unity!\n\nWith Game Settings you can divide your settings up into tiny chunks. Easily create your own settings, or make use of the built in Quality, Screen or Audio Settings to speedily add configurable Game Settings to your game!\n\nThis package has integration support with UIWitches (com.caseydecoder.uiwitches), a package that lets you manipulate your UI with ease to speed up your development even further!",
   "unity": "2020.1",

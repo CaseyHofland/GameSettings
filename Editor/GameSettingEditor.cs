@@ -1,4 +1,3 @@
-using System;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -189,8 +188,8 @@ namespace GameSettings.Editor
         {
             serializedObject.Update();
 
+            dynamicSerializedValue = gameSetting.value;
             EditorGUILayout.PropertyField(serializedValue, propertyLabel, true);
-
             gameSetting.value = dynamicSerializedValue;
             dynamicSerializedValue = gameSetting.value;
 
