@@ -11,31 +11,32 @@ namespace GameSettings
         protected string saveKeyY => saveKey + "Y";
         protected string saveKeyZ => saveKey + "Z";
 
-        [SerializeField] [HideInInspector] private Vector3 serializedValue;
-
         public override Vector3 value
         {
             get => QualitySettings.shadowCascade4Split;
             set => QualitySettings.shadowCascade4Split = new Vector3(Mathf.Clamp01(value.x), Mathf.Clamp01(value.y), Mathf.Clamp01(value.z));
         }
 
-        public override void Load()
+        public override void Save()
         {
             var value = this.value;
+
             PlayerPrefs.SetFloat(saveKeyX, value.x);
             PlayerPrefs.SetFloat(saveKeyY, value.y);
             PlayerPrefs.SetFloat(saveKeyZ, value.z);
+
             PlayerPrefs.Save();
         }
 
-        public override void Save()
+        public override void Load()
         {
-            if(PlayerPrefs.HasKey(saveKeyX)
-                && PlayerPrefs.HasKey(saveKeyY)
-                && PlayerPrefs.HasKey(saveKeyZ))
-            {
-                value = new Vector3(PlayerPrefs.GetFloat(saveKeyX), PlayerPrefs.GetFloat(saveKeyY), PlayerPrefs.GetFloat(saveKeyZ));
-            }
+            var value = this.value;
+
+            value.x = PlayerPrefs.GetFloat(saveKeyX, default);
+            value.y = PlayerPrefs.GetFloat(saveKeyY, default);
+            value.z = PlayerPrefs.GetFloat(saveKeyZ, default);
+
+            this.value = value;
         }
     }
 }

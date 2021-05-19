@@ -11,7 +11,9 @@ namespace GameSettings
 
         public override string settingName => "Maximum LOD Level";
 
+#if UNITY_EDITOR
         [NonSerialized] [Range(min, max)] private int serializedValue;
+#endif
 
         public override int value
         {

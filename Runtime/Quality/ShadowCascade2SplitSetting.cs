@@ -11,7 +11,9 @@ namespace GameSettings
 
         public override string settingName => "Shadow Cascade 2 Split";
 
+#if UNITY_EDITOR
         [NonSerialized] [Range(min, max)] private float serializedValue;
+#endif
 
         public override float value
         {
